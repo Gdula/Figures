@@ -77,6 +77,23 @@ class Triangle(ConvexPolygon):
         def draw(self):
             pass
 
+    class RegularPentagon(ConvexPolygon):
+        def __init__(self, fill_colour, outline_colour, a):
+            super().__init__(fill_colour, outline_colour)
+            self.a = a
+
+        def area(self):
+            return (math.sqrt(5 * (5 + 2 *
+                              (math.sqrt(5)))) * self.a * self.a) / 4
+
+        def perimeter(self):
+            return 5 * self.a
+
+        def draw(self):
+            pass
+
+
+
 
 t = Triangle("green", "black", 2, 3, 4)
 
