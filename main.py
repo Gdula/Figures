@@ -107,6 +107,20 @@ class Triangle(ConvexPolygon):
         def draw(self):
             pass
 
+    class RegularOctagon(ConvexPolygon):
+        def __init__(self, fill_colour, outline_colour, a):
+            super().__init__(fill_colour, outline_colour)
+            self.a = a
+
+        def area(self):
+            return 2 * (1 + (math.sqrt(2))) * self.a * self.a
+
+        def perimeter(self):
+            return 8 * self.a
+
+        def draw(self):
+            pass
+
 
 t = Triangle("green", "black", 2, 3, 4)
 
