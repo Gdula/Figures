@@ -19,7 +19,7 @@ class ConvexPolygon(ABC):
         pass
 
     @abstractmethod
-    def draw(self):
+    def draw(self, canvas):
         pass
 
 
@@ -39,7 +39,7 @@ class Triangle(ConvexPolygon):
     def perimeter(self):
         return self.a + self.b + self.c
 
-    def draw(self):
+    def draw(self, canvas):
         # determine corner points of triangle with sides a, b, c
         A = (0, 0)
         B = (self.c, 0)
@@ -53,83 +53,103 @@ class Triangle(ConvexPolygon):
         coords = [int((x + 1) * 75) for x in A + B + C]
         canvas.create_polygon(coords, fill=self.fill_colour, outline=self.outline_colour)
 
-    class ConvexQuadrilateral(ConvexPolygon):
-        def __init__(self, fill_colour, outline_colour, a, b, c, d):
-            super().__init__(fill_colour, outline_colour)
-            self.fill_colour = fill_colour
-            self.outline_colour = outline_colour
-            self.a = a
-            self.b = b
-            self.c = c
-            self.d = d
 
-        def area(self):
-            semiperimeter = self.perimeter() / 2
+class ConvexQuadrilateral(ConvexPolygon):
+    def __init__(self, fill_colour, outline_colour, a, b, c, d):
+        super().__init__(fill_colour, outline_colour)
+        self.fill_colour = fill_colour
+        self.outline_colour = outline_colour
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
 
-            return math.sqrt((semiperimeter - self.a) *
-                             (semiperimeter - self.b) *
-                             (semiperimeter - self.c) *
-                             (semiperimeter - self.d))
+    def area(self):
+        semiperimeter = self.perimeter() / 2
 
-        def perimeter(self):
-            return self.a + self.b + self.c + self.d
+        return math.sqrt((semiperimeter - self.a) *
+                         (semiperimeter - self.b) *
+                         (semiperimeter - self.c) *
+                         (semiperimeter - self.d))
 
-        def draw(self):
-            pass
+    def perimeter(self):
+        return self.a + self.b + self.c + self.d
 
-    class RegularPentagon(ConvexPolygon):
-        def __init__(self, fill_colour, outline_colour, a):
-            super().__init__(fill_colour, outline_colour)
-            self.a = a
+    def draw(self, canvas):
+        pass
 
-        def area(self):
-            return (math.sqrt(5 * (5 + 2 *
-                              (math.sqrt(5)))) * self.a * self.a) / 4
 
-        def perimeter(self):
-            return 5 * self.a
+class RegularPentagon(ConvexPolygon):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour)
+        self.a = a
 
-        def draw(self):
-            pass
+    def area(self):
+        return (math.sqrt(5 * (5 + 2 *
+                          (math.sqrt(5)))) * self.a * self.a) / 4
 
-    class RegularHexagon(ConvexPolygon):
-        def __init__(self, fill_colour, outline_colour, a):
-            super().__init__(fill_colour, outline_colour)
-            self.a = a
+    def perimeter(self):
+        return 5 * self.a
 
-        def area(self):
-            return ((3 * math.sqrt(3) *
-                     (self.a * self.a)) / 2);
+    def draw(self, canvas):
+        pass
 
-        def perimeter(self):
-            return self.a * 6
 
-        def draw(self):
-            pass
+class RegularHexagon(ConvexPolygon):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour)
+        self.a = a
 
-    class RegularOctagon(ConvexPolygon):
-        def __init__(self, fill_colour, outline_colour, a):
-            super().__init__(fill_colour, outline_colour)
-            self.a = a
+    def area(self):
+        return ((3 * math.sqrt(3) *
+                 (self.a * self.a)) / 2);
 
-        def area(self):
-            return 2 * (1 + (math.sqrt(2))) * self.a * self.a
+    def perimeter(self):
+        return self.a * 6
 
-        def perimeter(self):
-            return 8 * self.a
+    def draw(self, canvas):
+        pass
 
-        def draw(self):
-            pass
+
+class RegularOctagon(ConvexPolygon):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour)
+        self.a = a
+
+    def area(self):
+        return 2 * (1 + (math.sqrt(2))) * self.a * self.a
+
+    def perimeter(self):
+        return 8 * self.a
+
+    def draw(self, canvas):
+        pass
+
+
+class IsoscelesTriangle(Triangle):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour, a, a, a)
+
+    def area(self):
+        return super(IsoscelesTriangle, self).area()
+
+    def perimeter(self):
+        return super(IsoscelesTriangle, self).perimeter()
+
+    def draw(self, canvas):
+        pass
 
 
 t = Triangle("green", "black", 2, 3, 4)
 
+t2 = IsoscelesTriangle('A', 'A', 2)
 
+print(t2.area())
 # draw using Tkinter
 root = Tk()
 canvas = Canvas(root, width=500, height=300)
 
-t.draw()
+t.draw(canvas)
 
 canvas.pack()
 root.mainloop()
