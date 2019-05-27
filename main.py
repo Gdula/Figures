@@ -92,7 +92,20 @@ class Triangle(ConvexPolygon):
         def draw(self):
             pass
 
+    class RegularHexagon(ConvexPolygon):
+        def __init__(self, fill_colour, outline_colour, a):
+            super().__init__(fill_colour, outline_colour)
+            self.a = a
 
+        def area(self):
+            return ((3 * math.sqrt(3) *
+                     (self.a * self.a)) / 2);
+
+        def perimeter(self):
+            return self.a * 6
+
+        def draw(self):
+            pass
 
 
 t = Triangle("green", "black", 2, 3, 4)
