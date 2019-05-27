@@ -53,6 +53,30 @@ class Triangle(ConvexPolygon):
         coords = [int((x + 1) * 75) for x in A + B + C]
         canvas.create_polygon(coords, fill=self.fill_colour, outline=self.outline_colour)
 
+    class ConvexQuadrilateral(ConvexPolygon):
+        def __init__(self, fill_colour, outline_colour, a, b, c, d):
+            super().__init__(fill_colour, outline_colour)
+            self.fill_colour = fill_colour
+            self.outline_colour = outline_colour
+            self.a = a
+            self.b = b
+            self.c = c
+            self.d = d
+
+        def area(self):
+            semiperimeter = self.perimeter() / 2
+
+            return math.sqrt((semiperimeter - self.a) *
+                             (semiperimeter - self.b) *
+                             (semiperimeter - self.c) *
+                             (semiperimeter - self.d))
+
+        def perimeter(self):
+            return self.a + self.b + self.c + self.d
+
+        def draw(self):
+            pass
+
 
 t = Triangle("green", "black", 2, 3, 4)
 
