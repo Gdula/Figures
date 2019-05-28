@@ -171,10 +171,11 @@ class RegularHexagon(RegularPolygon):
         return super(RegularHexagon, self).draw(canvas)
 
 
-class RegularOctagon(ConvexPolygon):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour)
+class RegularOctagon(RegularPolygon):
+    def __init__(self, a, x, y, fill_colour, outline_colour):
+        self.num_sides = 7
         self.a = a
+        super().__init__(self.num_sides, a, x, y, fill_colour, outline_colour)
 
     def area(self):
         return 2 * (1 + (math.sqrt(2))) * self.a * self.a
@@ -183,7 +184,7 @@ class RegularOctagon(ConvexPolygon):
         return 8 * self.a
 
     def draw(self, canvas):
-        pass
+        return super(RegularOctagon, self).draw(canvas)
 
 
 class IsoscelesTriangle(Triangle):
@@ -277,7 +278,7 @@ canvas = Canvas(root, width=500, height=500)
 CENTER = Point(WIDTH // 2, HEIGHT // 2)
 
 # p = RegularPolygon(5, 400, *CENTER, "red", "blue")
-po = RegularHexagon(400, *CENTER, "red", "blue")
+po = RegularOctagon(400, *CENTER, "red", "blue")
 #for point in p.points:
     #print(point.x, point.y)
 
