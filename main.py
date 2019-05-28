@@ -127,8 +127,8 @@ class RegularOctagon(ConvexPolygon):
 
 
 class IsoscelesTriangle(Triangle):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour, a, a, a)
+    def __init__(self, fill_colour, outline_colour, a, b):
+        super().__init__(fill_colour, outline_colour, a, a, b)
 
     def area(self):
         return super(IsoscelesTriangle, self).area()
@@ -140,9 +140,82 @@ class IsoscelesTriangle(Triangle):
         pass
 
 
+class EquilateralTriangle(Triangle):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour, a, a, a)
+
+    def area(self):
+        return super(EquilateralTriangle, self).area()
+
+    def perimeter(self):
+        return super(EquilateralTriangle, self).perimeter()
+
+    def draw(self, canvas):
+        pass
+
+
+class Parallelogram(ConvexQuadrilateral):
+    def __init__(self, fill_colour, outline_colour, a, b, c, d):
+        super().__init__(fill_colour, outline_colour, a, b, c, d)
+
+    def area(self):
+        return super(Parallelogram, self).area()
+
+    def perimeter(self):
+        return super(Parallelogram, self).perimeter()
+
+    def draw(self, canvas):
+        pass
+
+
+class Kite(ConvexQuadrilateral):
+    def __init__(self, fill_colour, outline_colour, a, b):
+        super().__init__(fill_colour, outline_colour, a, a, b, b)
+
+    def area(self):
+        return super(Kite, self).area()
+
+    def perimeter(self):
+        return super(Kite, self).perimeter()
+
+    def draw(self, canvas):
+        pass
+
+
+class Rhombus(ConvexQuadrilateral):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour, a, a, a, a)
+
+    def area(self):
+        return super(Rhombus, self).area()
+
+    def perimeter(self):
+        return super(Rhombus, self).perimeter()
+
+    def draw(self, canvas):
+        pass
+
+
+class Square(ConvexQuadrilateral):
+    def __init__(self, fill_colour, outline_colour, a):
+        super().__init__(fill_colour, outline_colour, a, a, a, a)
+
+    def area(self):
+        return super(Square, self).area()
+
+    def perimeter(self):
+        return super(Square, self).perimeter()
+
+    def draw(self, canvas):
+        pass
+
+
+s = Square(1, 2, 2)
+print(s.area())
+
 t = Triangle("green", "black", 2, 3, 4)
 
-t2 = IsoscelesTriangle('A', 'A', 2)
+t2 = IsoscelesTriangle('A', 'A', 2, 3)
 
 print(t2.area())
 # draw using Tkinter
