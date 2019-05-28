@@ -2,6 +2,8 @@ from tkinter import *
 from abc import ABC, abstractmethod
 import math
 
+WIDTH, HEIGHT = 500, 500
+
 
 class ConvexPolygon(ABC):
     @abstractmethod
@@ -79,10 +81,66 @@ class ConvexQuadrilateral(ConvexPolygon):
         pass
 
 
-class RegularPentagon(ConvexPolygon):
-    def __init__(self, fill_colour, outline_colour, a):
+class Point:
+    """convenience for point arithmetic"""
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
+
+class RegularPolygon(ConvexPolygon):
+    def __init__(self, num_sides, a, x, y, fill_colour, outline_colour):   # x, y are bbox center canvas coordinates
         super().__init__(fill_colour, outline_colour)
         self.a = a
+        self.num_sides = num_sides
+        self.side_length = None
+        self.apothem = None
+        self._calc_side_length()
+        self.points = [Point(x - self.side_length // 2, y - self.apothem)]
+        self._make_points()
+
+    def _calc_side_length(self):
+        """Side length given the radius (circumradius):
+        i/e the distance from the center to a vertex
+        """
+        self.side_length = 2 * (self.a // 2) * math.sin(math.pi / self.num_sides)
+
+        # Apothem, i/e distance from the center of the polygon
+        # to the midpoint of any side, given the side length
+        self.apothem = self.side_length / (2 * math.tan(math.pi / self.num_sides))
+
+    def _make_points(self):
+        _angle = 2 * math.pi / self.num_sides
+        for pdx in range(self.num_sides):
+            angle = _angle * pdx
+            _x = math.cos(angle) * self.side_length
+            _y = math.sin(angle) * self.side_length
+            self.points.append(self.points[-1] + Point(_x, _y))
+
+    def draw(self, canvas):
+        points = []
+        for point in self.points:
+            points.append(point.x)
+            points.append(point.y)
+        canvas.create_polygon(points, fill=self.fill_colour, outline=self.outline_colour)
+
+    def area(self):
+        pass
+
+    def perimeter(self):
+        pass
+
+
+class RegularPentagon(RegularPolygon):
+    def __init__(self, bbox_side, x, y, fill_colour, outline_colour):
+        self.num_sides = 5
+        super().__init__(self.num_sides, bbox_side, x, y, fill_colour, outline_colour)
 
     def area(self):
         return (math.sqrt(5 * (5 + 2 *
@@ -92,7 +150,7 @@ class RegularPentagon(ConvexPolygon):
         return 5 * self.a
 
     def draw(self, canvas):
-        pass
+        return super(RegularPentagon, self).draw(canvas)
 
 
 class RegularHexagon(ConvexPolygon):
@@ -210,19 +268,20 @@ class Square(ConvexQuadrilateral):
         pass
 
 
-s = Square(1, 2, 2)
-print(s.area())
-
-t = Triangle("green", "black", 2, 3, 4)
-
-t2 = IsoscelesTriangle('A', 'A', 2, 3)
-
-print(t2.area())
 # draw using Tkinter
 root = Tk()
-canvas = Canvas(root, width=500, height=300)
+canvas = Canvas(root, width=500, height=500)
 
-t.draw(canvas)
+CENTER = Point(WIDTH // 2, HEIGHT // 2)
+
+# p = RegularPolygon(5, 400, *CENTER, "red", "blue")
+po = RegularPentagon(400, *CENTER, "red", "blue")
+#for point in p.points:
+    #print(point.x, point.y)
+
+po.draw(canvas)
+
+#t.draw(canvas)
 
 canvas.pack()
 root.mainloop()
