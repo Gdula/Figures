@@ -138,9 +138,10 @@ class RegularPolygon(ConvexPolygon):
 
 
 class RegularPentagon(RegularPolygon):
-    def __init__(self, bbox_side, x, y, fill_colour, outline_colour):
+    def __init__(self, a, x, y, fill_colour, outline_colour):
         self.num_sides = 5
-        super().__init__(self.num_sides, bbox_side, x, y, fill_colour, outline_colour)
+        self.a = a
+        super().__init__(self.num_sides, a, x, y, fill_colour, outline_colour)
 
     def area(self):
         return (math.sqrt(5 * (5 + 2 *
@@ -153,10 +154,11 @@ class RegularPentagon(RegularPolygon):
         return super(RegularPentagon, self).draw(canvas)
 
 
-class RegularHexagon(ConvexPolygon):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour)
+class RegularHexagon(RegularPolygon):
+    def __init__(self, a, x, y, fill_colour, outline_colour):
+        self.num_sides = 6
         self.a = a
+        super().__init__(self.num_sides, a, x, y, fill_colour, outline_colour)
 
     def area(self):
         return ((3 * math.sqrt(3) *
@@ -166,7 +168,7 @@ class RegularHexagon(ConvexPolygon):
         return self.a * 6
 
     def draw(self, canvas):
-        pass
+        return super(RegularHexagon, self).draw(canvas)
 
 
 class RegularOctagon(ConvexPolygon):
@@ -275,7 +277,7 @@ canvas = Canvas(root, width=500, height=500)
 CENTER = Point(WIDTH // 2, HEIGHT // 2)
 
 # p = RegularPolygon(5, 400, *CENTER, "red", "blue")
-po = RegularPentagon(400, *CENTER, "red", "blue")
+po = RegularHexagon(400, *CENTER, "red", "blue")
 #for point in p.points:
     #print(point.x, point.y)
 
