@@ -57,14 +57,30 @@ class Triangle(ConvexPolygon):
 
 
 class ConvexQuadrilateral(ConvexPolygon):
-    def __init__(self, fill_colour, outline_colour, a, b, c, d):
+    def __init__(self, fill_colour, outline_colour, A, B, C, D):
         super().__init__(fill_colour, outline_colour)
         self.fill_colour = fill_colour
         self.outline_colour = outline_colour
-        self.a = a
-        self.b = b
-        self.c = c
-        self.d = d
+        self.A = Point(A.x, A.y)
+        self.B = Point(B.x, B.y)
+        self.C = Point(C.x, C.y)
+        self.D = Point(D.x, D.y)
+        self.a = self.length_a()
+        self.b = self.length_b()
+        self.c = self.length_c()
+        self.d = self.length_d()
+
+    def length_a(self):
+        return math.sqrt(math.pow(self.B.x - self.A.x, 2) + math.pow(self.B.y - self.A.y, 2))
+
+    def length_b(self):
+        return math.sqrt(math.pow(self.C.x - self.B.x, 2) + math.pow(self.C.y - self.B.y, 2))
+
+    def length_c(self):
+        return math.sqrt(math.pow(self.D.x - self.C.x, 2) + math.pow(self.D.y - self.C.y, 2))
+
+    def length_d(self):
+        return math.sqrt(math.pow(self.A.x - self.D.x, 2) + math.pow(self.A.y - self.D.y, 2))
 
     def area(self):
         semiperimeter = self.perimeter() / 2
@@ -78,7 +94,8 @@ class ConvexQuadrilateral(ConvexPolygon):
         return self.a + self.b + self.c + self.d
 
     def draw(self, canvas):
-        pass
+        points = [(self.A.x, self.A.y), (self.B.x, self.B.y), (self.C.x, self.C.y), (self.D.x, self.D.y)]
+        canvas.create_polygon(points, fill=self.fill_colour, outline=self.outline_colour)
 
 
 class Point:
@@ -289,8 +306,11 @@ po = RegularOctagon(400, *CENTER, "red", "blue")
 #po.draw(canvas)
 #t = IsoscelesTriangle("white", "black", 2, 1)
 #t.draw(canvas)
-t2 = EquilateralTriangle(400, *CENTER, "red", "blue")
-t2.draw(canvas)
+#t2 = EquilateralTriangle(400, *CENTER, "red", "blue")
+#t2.draw(canvas)
+c = ConvexQuadrilateral("red", "black", Point(20, 20), Point(300, 30), Point(400, 100), Point(50, 200))
+print(c.length_a(), c.length_b(), c.length_c(), c.length_d())
+c.draw(canvas)
 canvas.pack()
 root.mainloop()
 
