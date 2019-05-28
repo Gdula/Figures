@@ -189,7 +189,9 @@ class RegularOctagon(RegularPolygon):
 
 class IsoscelesTriangle(Triangle):
     def __init__(self, fill_colour, outline_colour, a, b):
-        super().__init__(fill_colour, outline_colour, a, a, b)
+        super().__init__(fill_colour, outline_colour, a, b, a)
+        self.a = a
+        self.b = b
 
     def area(self):
         return super(IsoscelesTriangle, self).area()
@@ -198,12 +200,14 @@ class IsoscelesTriangle(Triangle):
         return super(IsoscelesTriangle, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        super(IsoscelesTriangle, self).draw(canvas)
 
 
-class EquilateralTriangle(Triangle):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour, a, a, a)
+class EquilateralTriangle(RegularPolygon):
+    def __init__(self, a, x, y, fill_colour, outline_colour):
+        self.num_sides = 3
+        self.a = a
+        super().__init__(self.num_sides, a, x, y, fill_colour, outline_colour)
 
     def area(self):
         return super(EquilateralTriangle, self).area()
@@ -212,7 +216,7 @@ class EquilateralTriangle(Triangle):
         return super(EquilateralTriangle, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        return super(EquilateralTriangle, self).draw(canvas)
 
 
 class Parallelogram(ConvexQuadrilateral):
@@ -282,10 +286,11 @@ po = RegularOctagon(400, *CENTER, "red", "blue")
 #for point in p.points:
     #print(point.x, point.y)
 
-po.draw(canvas)
-
+#po.draw(canvas)
+#t = IsoscelesTriangle("white", "black", 2, 1)
 #t.draw(canvas)
-
+t2 = EquilateralTriangle(400, *CENTER, "red", "blue")
+t2.draw(canvas)
 canvas.pack()
 root.mainloop()
 
