@@ -1,8 +1,5 @@
-from tkinter import *
 from abc import ABC, abstractmethod
 import math
-
-WIDTH, HEIGHT = 500, 500
 
 
 class ConvexPolygon(ABC):
@@ -237,8 +234,18 @@ class EquilateralTriangle(RegularPolygon):
 
 
 class Parallelogram(ConvexQuadrilateral):
-    def __init__(self, fill_colour, outline_colour, a, b, c, d):
-        super().__init__(fill_colour, outline_colour, a, b, c, d)
+    def __init__(self, fill_colour, outline_colour, A, B, C, D):
+        super().__init__(fill_colour, outline_colour, A, B, C, D)
+        self.A = Point(A.x, A.y)
+        self.B = Point(B.x, B.y)
+        self.C = Point(C.x, C.y)
+        self.D = Point(D.x, D.y)
+
+    def length_a(self):
+        return super(Parallelogram, self).length_a()
+
+    def length_b(self):
+        return super(Parallelogram, self).length_b()
 
     def area(self):
         return super(Parallelogram, self).area()
@@ -247,12 +254,22 @@ class Parallelogram(ConvexQuadrilateral):
         return super(Parallelogram, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        return super(Parallelogram, self).draw(canvas)
 
 
 class Kite(ConvexQuadrilateral):
-    def __init__(self, fill_colour, outline_colour, a, b):
-        super().__init__(fill_colour, outline_colour, a, a, b, b)
+    def __init__(self, fill_colour, outline_colour, A, B, C, D):
+        super().__init__(fill_colour, outline_colour, A, B, C, D)
+        self.A = Point(A.x, A.y)
+        self.B = Point(B.x, B.y)
+        self.C = Point(C.x, C.y)
+        self.D = Point(D.x, D.y)
+
+    def length_a(self):
+        return super(Kite, self).length_a()
+
+    def length_b(self):
+        return super(Kite, self).length_b()
 
     def area(self):
         return super(Kite, self).area()
@@ -261,12 +278,22 @@ class Kite(ConvexQuadrilateral):
         return super(Kite, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        return super(Kite, self).draw(canvas)
 
 
 class Rhombus(ConvexQuadrilateral):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour, a, a, a, a)
+    def __init__(self, fill_colour, outline_colour, A, B, C, D):
+        super().__init__(fill_colour, outline_colour, A, B, C, D)
+        self.A = Point(A.x, A.y)
+        self.B = Point(B.x, B.y)
+        self.C = Point(C.x, C.y)
+        self.D = Point(D.x, D.y)
+
+    def length_a(self):
+        return super(Rhombus, self).length_a()
+
+    def length_b(self):
+        return super(Rhombus, self).length_b()
 
     def area(self):
         return super(Rhombus, self).area()
@@ -275,12 +302,22 @@ class Rhombus(ConvexQuadrilateral):
         return super(Rhombus, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        return super(Rhombus, self).draw(canvas)
 
 
 class Square(ConvexQuadrilateral):
-    def __init__(self, fill_colour, outline_colour, a):
-        super().__init__(fill_colour, outline_colour, a, a, a, a)
+    def __init__(self, fill_colour, outline_colour, A, B, C, D):
+        super().__init__(fill_colour, outline_colour, A, B, C, D)
+        self.A = Point(A.x, A.y)
+        self.B = Point(B.x, B.y)
+        self.C = Point(C.x, C.y)
+        self.D = Point(D.x, D.y)
+
+    def length_a(self):
+        return super(Square, self).length_a()
+
+    def length_b(self):
+        return super(Square, self).length_b()
 
     def area(self):
         return super(Square, self).area()
@@ -289,30 +326,10 @@ class Square(ConvexQuadrilateral):
         return super(Square, self).perimeter()
 
     def draw(self, canvas):
-        pass
+        return super(Square, self).draw(canvas)
 
 
-# draw using Tkinter
-root = Tk()
-canvas = Canvas(root, width=500, height=500)
 
-CENTER = Point(WIDTH // 2, HEIGHT // 2)
-
-# p = RegularPolygon(5, 400, *CENTER, "red", "blue")
-po = RegularOctagon(400, *CENTER, "red", "blue")
-#for point in p.points:
-    #print(point.x, point.y)
-
-#po.draw(canvas)
-#t = IsoscelesTriangle("white", "black", 2, 1)
-#t.draw(canvas)
-#t2 = EquilateralTriangle(400, *CENTER, "red", "blue")
-#t2.draw(canvas)
-c = ConvexQuadrilateral("red", "black", Point(20, 20), Point(300, 30), Point(400, 100), Point(50, 200))
-print(c.length_a(), c.length_b(), c.length_c(), c.length_d())
-c.draw(canvas)
-canvas.pack()
-root.mainloop()
 
 
 
