@@ -26,13 +26,20 @@ class Gui(object):
         canvas.pack()
 
     def menu(self, root):
-        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
-        enter_button = Button(root, text="Trójkąt", command=lambda: self.draw_triangle(root, canvas))
+        root.destroy()
+        root = Tk()
+        #canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        enter_button = Button(root, text="Trójkąt", command=lambda: self.draw_triangle(root))
         enter_button.pack()
+        #canvas.pack()
+        enter_button = Button(root, text="Wielokąt", command=lambda: self.draw_convex_quadrilateral(root))
+        enter_button.pack()
+
+    def draw_triangle(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
         canvas.pack()
-
-    def draw_triangle(self, root, canvas):
-
         top_frame = Frame(root)
         top_frame.pack()
         bottom_frame = Frame(root)
@@ -61,12 +68,18 @@ class Gui(object):
         entry = Entry(root, width=10, textvariable=c_label)
         entry.pack()
 
-
         enter_button = Button(root, text="Enter",command=lambda: self.get_triangle(fill_colour.get(),
-                            outline_colour.get(), a_label.get(), b_label.get(),c_label.get(), canvas))
+                            outline_colour.get(), a_label.get(), b_label.get(), c_label.get(), canvas))
         enter_button.pack()
 
-    def draw_convex_quadrilateral(self, root, canvas):
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def draw_convex_quadrilateral(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
         text = Label(root, text="Czworokąt")
         text.pack()
 
@@ -113,6 +126,9 @@ class Gui(object):
         enter_button = Button(root, text="Enter", command=lambda: self.get_convex_quarilateral(fill_colour.get(),
         outline_colour.get(), Point(a_label_x.get(), a_label_y.get()), Point(b_label_x.get(), b_label_y.get()),
         Point(c_label_x.get(), c_label_y.get()), Point(d_label_x.get(), d_label_y.get()), canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
         enter_button.pack()
 
     def get_triangle(self, fill_colour, outline_colour, a_label, b_label, c_label, canvas):
