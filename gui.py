@@ -42,6 +42,12 @@ class Gui(object):
         enter_button = Button(root, text="Hexagon", command=lambda: self.regular_hexagon_page(root))
         enter_button.pack()
 
+        enter_button = Button(root, text="Oktagon", command=lambda: self.regular_octagon_page(root))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Trójkąt równoramienny", command=lambda: self.isosceles_triangle_page(root))
+        enter_button.pack()
+
     def triangle_page(self, root):
         root.destroy()
         root = Tk()
@@ -174,7 +180,7 @@ class Gui(object):
         root = Tk()
         canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
         canvas.pack()
-        text = Label(root, text="Wielokąt foremny")
+        text = Label(root, text="Heksagon")
         text.pack()
 
         fill_colour = StringVar()
@@ -192,6 +198,66 @@ class Gui(object):
         enter_button = Button(root, text="Enter",
                               command=lambda: self.draw_regular_hexagon(a.get(), fill_colour.get(),
                                                                         outline_colour.get(), canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def regular_octagon_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Oktagon")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a = IntVar()
+        entry = Entry(root, width=10, textvariable=a)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter",
+                              command=lambda: self.draw_regular_octagon(a.get(), fill_colour.get(),
+                                                                        outline_colour.get(), canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def isosceles_triangle_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Trójkąt równoramienny")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a = IntVar()
+        entry = Entry(root, width=10, textvariable=a)
+        entry.pack()
+
+        b = IntVar()
+        entry = Entry(root, width=10, textvariable=b)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter",
+                              command=lambda: self.draw_isosceles_triangle(fill_colour.get(),
+                                                                           outline_colour.get(), a.get(), b.get(), canvas))
         enter_button.pack()
 
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
@@ -224,3 +290,18 @@ class Gui(object):
         canvas.create_text(150, 10, text=("Obwód", regular_hexagon.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", regular_hexagon.area()))
         regular_hexagon.draw(canvas)
+
+    def draw_regular_octagon(self, a, fill_colour, outline_colour, canvas):
+        canvas.delete("all")
+        regular_octagon = RegularHexagon(a, *self.CENTER, fill_colour, outline_colour)
+        canvas.create_text(150, 10, text=("Obwód", regular_octagon.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", regular_octagon.area()))
+        regular_octagon.draw(canvas)
+
+    def draw_isosceles_triangle(self, fill_colour, outline_colour, a, b, canvas):
+        canvas.delete("all")
+        isosceles_triangle = IsoscelesTriangle(fill_colour, outline_colour, a, b)
+        canvas.create_text(150, 10, text=("Obwód", isosceles_triangle.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", isosceles_triangle.area()))
+        isosceles_triangle.draw(canvas)
+        
