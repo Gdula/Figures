@@ -48,6 +48,15 @@ class Gui(object):
         enter_button = Button(root, text="Trójkąt równoramienny", command=lambda: self.isosceles_triangle_page(root))
         enter_button.pack()
 
+        enter_button = Button(root, text="Trójkąt równoboczny", command=lambda: self.equilateral_triangle_page(root))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Równoległobok", command=lambda: self.parallelogram_page(root))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Deltoid", command=lambda: self.kite_page(root))
+        enter_button.pack()
+
     def triangle_page(self, root):
         root.destroy()
         root = Tk()
@@ -263,6 +272,162 @@ class Gui(object):
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
         enter_button.pack()
 
+    def equilateral_triangle_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Trójkąt równoboczny")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a = IntVar()
+        entry = Entry(root, width=10, textvariable=a)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter",
+                              command=lambda: self.draw_equilateral_triangle(a.get(), fill_colour.get(),
+                                                                        outline_colour.get(), canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def parallelogram_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Równoległobok")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_x)
+        entry.pack()
+
+        a_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_y)
+        entry.pack()
+
+        b_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_x)
+        entry.pack()
+
+        b_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_y)
+        entry.pack()
+
+        c_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_x)
+        entry.pack()
+
+        c_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_y)
+        entry.pack()
+
+        d_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_x)
+        entry.pack()
+
+        d_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_y)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter", command=lambda: self.draw_kite(fill_colour.get(),
+                                                                                                 outline_colour.get(),
+                                                                                                 Point(a_label_x.get(),
+                                                                                                       a_label_y.get()),
+                                                                                                 Point(b_label_x.get(),
+                                                                                                       b_label_y.get()),
+                                                                                                 Point(c_label_x.get(),
+                                                                                                       c_label_y.get()),
+                                                                                                 Point(d_label_x.get(),
+                                                                                                       d_label_y.get()),
+                                                                                                 canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def kite_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Deltoid")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_x)
+        entry.pack()
+
+        a_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_y)
+        entry.pack()
+
+        b_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_x)
+        entry.pack()
+
+        b_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_y)
+        entry.pack()
+
+        c_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_x)
+        entry.pack()
+
+        c_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_y)
+        entry.pack()
+
+        d_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_x)
+        entry.pack()
+
+        d_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_y)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter", command=lambda: self.draw_kite(fill_colour.get(),
+                                                                                                 outline_colour.get(),
+                                                                                                 Point(a_label_x.get(),
+                                                                                                       a_label_y.get()),
+                                                                                                 Point(b_label_x.get(),
+                                                                                                       b_label_y.get()),
+                                                                                                 Point(c_label_x.get(),
+                                                                                                       c_label_y.get()),
+                                                                                                 Point(d_label_x.get(),
+                                                                                                       d_label_y.get()),
+                                                                                                 canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
     def draw_triangle(self, fill_colour, outline_colour, a_label, b_label, c_label, canvas):
         canvas.delete("all")
         triangle = Triangle(fill_colour, outline_colour, a_label, b_label, c_label)
@@ -304,4 +469,24 @@ class Gui(object):
         canvas.create_text(150, 10, text=("Obwód", isosceles_triangle.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", isosceles_triangle.area()))
         isosceles_triangle.draw(canvas)
-        
+
+    def draw_equilateral_triangle(self, a, fill_colour, outline_colour, canvas):
+        canvas.delete("all")
+        equilateral_triangle = EquilateralTriangle(a, *self.CENTER, fill_colour, outline_colour)
+        canvas.create_text(150, 10, text=("Obwód", equilateral_triangle.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", equilateral_triangle.area()))
+        equilateral_triangle.draw(canvas)
+
+    def draw_parallelogram(self, fill_colour, outline_colour, A, B, C, D, canvas):
+        canvas.delete("all")
+        parallelogram = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        canvas.create_text(150, 10, text=("Obwód", parallelogram.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", parallelogram.area()))
+        parallelogram.draw(canvas)
+
+    def draw_kite(self, fill_colour, outline_colour, A, B, C, D, canvas):
+        canvas.delete("all")
+        kite = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        canvas.create_text(150, 10, text=("Obwód", kite.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", kite.area()))
+        kite.draw(canvas)
