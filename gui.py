@@ -57,6 +57,12 @@ class Gui(object):
         enter_button = Button(root, text="Deltoid", command=lambda: self.kite_page(root))
         enter_button.pack()
 
+        enter_button = Button(root, text="Romb", command=lambda: self.rhombus_page(root))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Kwadrat", command=lambda: self.square_page(root))
+        enter_button.pack()
+
     def triangle_page(self, root):
         root.destroy()
         root = Tk()
@@ -428,6 +434,134 @@ class Gui(object):
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
         enter_button.pack()
 
+    def rhombus_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Romb")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_x)
+        entry.pack()
+
+        a_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_y)
+        entry.pack()
+
+        b_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_x)
+        entry.pack()
+
+        b_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_y)
+        entry.pack()
+
+        c_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_x)
+        entry.pack()
+
+        c_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_y)
+        entry.pack()
+
+        d_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_x)
+        entry.pack()
+
+        d_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_y)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter", command=lambda: self.draw_rhombus(fill_colour.get(),
+                                                                                 outline_colour.get(),
+                                                                                 Point(a_label_x.get(),
+                                                                                       a_label_y.get()),
+                                                                                 Point(b_label_x.get(),
+                                                                                       b_label_y.get()),
+                                                                                 Point(c_label_x.get(),
+                                                                                       c_label_y.get()),
+                                                                                 Point(d_label_x.get(),
+                                                                                       d_label_y.get()),
+                                                                                 canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
+    def square_page(self, root):
+        root.destroy()
+        root = Tk()
+        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+        canvas.pack()
+        text = Label(root, text="Kwadrat")
+        text.pack()
+
+        fill_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.pack()
+
+        outline_colour = StringVar()
+        entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.pack()
+
+        a_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_x)
+        entry.pack()
+
+        a_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=a_label_y)
+        entry.pack()
+
+        b_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_x)
+        entry.pack()
+
+        b_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=b_label_y)
+        entry.pack()
+
+        c_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_x)
+        entry.pack()
+
+        c_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=c_label_y)
+        entry.pack()
+
+        d_label_x = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_x)
+        entry.pack()
+
+        d_label_y = IntVar()
+        entry = Entry(root, width=10, textvariable=d_label_y)
+        entry.pack()
+
+        enter_button = Button(root, text="Enter", command=lambda: self.draw_square(fill_colour.get(),
+                                                                                 outline_colour.get(),
+                                                                                 Point(a_label_x.get(),
+                                                                                       a_label_y.get()),
+                                                                                 Point(b_label_x.get(),
+                                                                                       b_label_y.get()),
+                                                                                 Point(c_label_x.get(),
+                                                                                       c_label_y.get()),
+                                                                                 Point(d_label_x.get(),
+                                                                                       d_label_y.get()),
+                                                                                 canvas))
+        enter_button.pack()
+
+        enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
+        enter_button.pack()
+
     def draw_triangle(self, fill_colour, outline_colour, a_label, b_label, c_label, canvas):
         canvas.delete("all")
         triangle = Triangle(fill_colour, outline_colour, a_label, b_label, c_label)
@@ -490,3 +624,17 @@ class Gui(object):
         canvas.create_text(150, 10, text=("Obwód", kite.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", kite.area()))
         kite.draw(canvas)
+
+    def draw_rhombus(self, fill_colour, outline_colour, A, B, C, D, canvas):
+        canvas.delete("all")
+        rhombus = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        canvas.create_text(150, 10, text=("Obwód", rhombus.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", rhombus.area()))
+        rhombus.draw(canvas)
+
+    def draw_square(self, fill_colour, outline_colour, A, B, C, D, canvas):
+        canvas.delete("all")
+        square = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        canvas.create_text(150, 10, text=("Obwód", square.perimeter()))
+        canvas.create_text(150, 30, text=("Pole ", square.area()))
+        square.draw(canvas)
