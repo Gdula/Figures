@@ -8,13 +8,13 @@ class App(object):
         self.gui = Gui()
 
     def run(self):
-        gui = Gui()
+        #gui = Gui()
         root = Tk()
         label = Label(root, text="Figury")
         #label.pack()
 
         #gui.draw_buttons(root)
-        gui.menu(root)
+        self.gui.menu(root)
         choice = "triangle"
         #app.figure_factory(choice, root)
 

@@ -145,10 +145,10 @@ class RegularPolygon(ConvexPolygon):
         canvas.create_polygon(points, fill=self.fill_colour, outline=self.outline_colour)
 
     def area(self):
-        pass
+        return (self.num_sides * (self.a ** 2)) / (4 * math.tan((math.pi) / self.num_sides))
 
     def perimeter(self):
-        pass
+        return self.num_sides * self.a
 
 
 class RegularPentagon(RegularPolygon):
