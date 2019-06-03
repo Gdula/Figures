@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
 import math
+import descriptors as ds
 
 
 class ConvexPolygon(ABC):
+    fill_colour = ds.Colour('fill_colour')
+    outline_colour = ds.Colour('outline_colour')
     @abstractmethod
     def __init__(self, fill_colour, outline_colour):
         super().__init__()
@@ -23,6 +26,10 @@ class ConvexPolygon(ABC):
 
 
 class Triangle(ConvexPolygon):
+    a = ds.Side('a')
+    b = ds.Side('b')
+    c = ds.Side('c')
+
     def __init__(self, fill_colour, outline_colour, a, b, c):
         super().__init__(fill_colour, outline_colour)
         self.a = a
@@ -47,11 +54,16 @@ class Triangle(ConvexPolygon):
         if abs((self.c - dx) ** 2 + hc ** 2 - self.a ** 2) > 0.01: dx = -dx
         C = (dx, hc)
 
-        coords = [int((x + 1) * 75) for x in A + B + C]
+        coords = [int((x + 100)) for x in A + B + C]
         canvas.create_polygon(coords, fill=self.fill_colour, outline=self.outline_colour)
 
 
 class ConvexQuadrilateral(ConvexPolygon):
+    A = ds.Point('A')
+    B = ds.Point('B')
+    C = ds.Point('C')
+    D = ds.Point('D')
+
     def __init__(self, fill_colour, outline_colour, A, B, C, D):
         super().__init__(fill_colour, outline_colour)
         self.fill_colour = fill_colour
@@ -106,6 +118,8 @@ class Point:
 
 
 class RegularPolygon(ConvexPolygon):
+    a = ds.Side('a')
+
     def __init__(self, num_sides, a, x, y, fill_colour, outline_colour):
         super().__init__(fill_colour, outline_colour)
         self.a = a
@@ -144,6 +158,8 @@ class RegularPolygon(ConvexPolygon):
 
 
 class RegularPentagon(RegularPolygon):
+    a = ds.Side('a')
+
     def __init__(self, a, x, y, fill_colour, outline_colour):
         self.num_sides = 5
         self.a = a
