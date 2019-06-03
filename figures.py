@@ -39,7 +39,6 @@ class Triangle(ConvexPolygon):
         return self.a + self.b + self.c
 
     def draw(self, canvas):
-        # determine corner points of triangle with sides a, b, c
         A = (0, 0)
         B = (self.c, 0)
         hc = (2 * (self.a ** 2 * self.b ** 2 + self.b ** 2 * self.c ** 2 + self.c ** 2 * self.a ** 2) -
@@ -48,7 +47,6 @@ class Triangle(ConvexPolygon):
         if abs((self.c - dx) ** 2 + hc ** 2 - self.a ** 2) > 0.01: dx = -dx
         C = (dx, hc)
 
-        # move away from topleft, scale up a bit, convert to int
         coords = [int((x + 1) * 75) for x in A + B + C]
         canvas.create_polygon(coords, fill=self.fill_colour, outline=self.outline_colour)
 
@@ -96,7 +94,6 @@ class ConvexQuadrilateral(ConvexPolygon):
 
 
 class Point:
-    """convenience for point arithmetic"""
     def __init__(self, x, y):
         self.x, self.y = x, y
 
@@ -109,7 +106,7 @@ class Point:
 
 
 class RegularPolygon(ConvexPolygon):
-    def __init__(self, num_sides, a, x, y, fill_colour, outline_colour):   # x, y are bbox center canvas coordinates
+    def __init__(self, num_sides, a, x, y, fill_colour, outline_colour):
         super().__init__(fill_colour, outline_colour)
         self.a = a
         self.num_sides = num_sides
@@ -120,13 +117,8 @@ class RegularPolygon(ConvexPolygon):
         self._make_points()
 
     def _calc_side_length(self):
-        """Side length given the radius (circumradius):
-        i/e the distance from the center to a vertex
-        """
         self.side_length = 2 * (self.a // 2) * math.sin(math.pi / self.num_sides)
 
-        # Apothem, i/e distance from the center of the polygon
-        # to the midpoint of any side, given the side length
         self.apothem = self.side_length / (2 * math.tan(math.pi / self.num_sides))
 
     def _make_points(self):
@@ -305,25 +297,17 @@ class Rhombus(ConvexQuadrilateral):
         return super(Rhombus, self).draw(canvas)
 
 
-class Square(ConvexQuadrilateral):
-    def __init__(self, fill_colour, outline_colour, A, B, C, D):
-        super().__init__(fill_colour, outline_colour, A, B, C, D)
-        self.A = Point(A.x, A.y)
-        self.B = Point(B.x, B.y)
-        self.C = Point(C.x, C.y)
-        self.D = Point(D.x, D.y)
-
-    def length_a(self):
-        return super(Square, self).length_a()
-
-    def length_b(self):
-        return super(Square, self).length_b()
+class Square(RegularPolygon):
+    def __init__(self, a, x, y, fill_colour, outline_colour):
+        self.num_sides = 4
+        self.a = a
+        super().__init__(self.num_sides, a, x, y, fill_colour, outline_colour)
 
     def area(self):
-        return super(Square, self).area()
+        return self.a * self.a
 
     def perimeter(self):
-        return super(Square, self).perimeter()
+        return 4 * self.a
 
     def draw(self, canvas):
         return super(Square, self).draw(canvas)

@@ -7,32 +7,16 @@ class Gui(object):
 
     def __init__(self):
         self.WIDTH = 500
-        self.HEIGHT = 500
+        self.HEIGHT = 400
         self.CENTER = Point(self.WIDTH // 2, self.HEIGHT // 2)
-
-    def canvas(self, root):
-        canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
-
-        p = RegularPolygon(5, 400, *self.CENTER, "red", "blue")
-        po = RegularOctagon(400, *self.CENTER, "red", "blue")
-
-        #po.draw(canvas)
-        #t = IsoscelesTriangle("white", "black", 2, 1)
-        #t.draw(canvas)
-        #t2 = EquilateralTriangle(400, *CENTER, "red", "blue")
-        #t2.draw(canvas)
-        #canvas.delete(All)
-        c = Parallelogram("red", "black", Point(10, 20), Point(300, 30), Point(400, 100), Point(50, 200))
-        c.draw(canvas)
-        canvas.pack()
 
     def menu(self, root):
         root.destroy()
         root = Tk()
-        #canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
+
         enter_button = Button(root, text="Trójkąt", command=lambda: self.triangle_page(root))
         enter_button.pack()
-        #canvas.pack()
+
         enter_button = Button(root, text="Wielokąt", command=lambda: self.convex_quadrilateral_page(root))
         enter_button.pack()
 
@@ -76,27 +60,37 @@ class Gui(object):
         text = Label(root, text="Trójkąt")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
 
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
 
+        text = Label(root, text="a")
+        text.pack()
         a_label = IntVar()
         entry = Entry(root, width=10, textvariable=a_label)
         entry.pack()
 
+        text = Label(root, text="b")
+        text.pack()
         b_label = IntVar()
         entry = Entry(root, width=10, textvariable=b_label)
         entry.pack()
 
+        text = Label(root, text="c")
+        text.pack()
         c_label = IntVar()
         entry = Entry(root, width=10, textvariable=c_label)
         entry.pack()
 
-        enter_button = Button(root, text="Enter",command=lambda: self.draw_triangle(fill_colour.get(),
+        enter_button = Button(root, text="Enter", command=lambda: self.draw_triangle(fill_colour.get(),
                                                                                     outline_colour.get(), a_label.get(), b_label.get(), c_label.get(), canvas))
         enter_button.pack()
 
@@ -108,44 +102,68 @@ class Gui(object):
         root = Tk()
         canvas = Canvas(root, width=self.WIDTH, height=self.HEIGHT)
         canvas.pack()
-        text = Label(root, text="Czworokąt")
-        text.pack()
 
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.insert(END, 'Black')
         entry.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.insert(END, 'red')
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         a_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         a_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         b_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         b_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         c_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         c_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_y)
         entry.pack()
 
+        text = Label(root, text="x")
+        text.pack()
+
         d_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_x)
         entry.pack()
+
+        text = Label(root, text="y")
+        text.pack()
 
         d_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_y)
@@ -157,7 +175,7 @@ class Gui(object):
         enter_button.pack()
 
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
-        enter_button.pack()
+        enter_button.pack(side=LEFT)
 
     def regular_polygon_page(self, root):
         root.destroy()
@@ -167,17 +185,29 @@ class Gui(object):
         text = Label(root, text="Wielokąt foremny")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
+
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
 
+        text = Label(root, text="Ilość boków")
+        text.pack()
+
         num_sides = IntVar()
         entry = Entry(root, width=10, textvariable=num_sides)
         entry.pack()
+
+        text = Label(root, text="Długość boku")
+        text.pack()
 
         a = IntVar()
         entry = Entry(root, width=10, textvariable=a)
@@ -198,13 +228,22 @@ class Gui(object):
         text = Label(root, text="Heksagon")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
 
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
+
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
+
+        text = Label(root, text="Ilość boków")
+        text.pack()
 
         a = IntVar()
         entry = Entry(root, width=10, textvariable=a)
@@ -226,13 +265,22 @@ class Gui(object):
         text = Label(root, text="Oktagon")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
 
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
+
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
+
+        text = Label(root, text="Ilość boków")
+        text.pack()
 
         a = IntVar()
         entry = Entry(root, width=10, textvariable=a)
@@ -254,17 +302,29 @@ class Gui(object):
         text = Label(root, text="Trójkąt równoramienny")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
+
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
 
+        text = Label(root, text="a")
+        text.pack()
+
         a = IntVar()
         entry = Entry(root, width=10, textvariable=a)
         entry.pack()
+
+        text = Label(root, text="b")
+        text.pack()
 
         b = IntVar()
         entry = Entry(root, width=10, textvariable=b)
@@ -286,13 +346,22 @@ class Gui(object):
         text = Label(root, text="Trójkąt równoboczny")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
 
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
+
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
+
+        text = Label(root, text="a")
+        text.pack()
 
         a = IntVar()
         entry = Entry(root, width=10, textvariable=a)
@@ -316,55 +385,81 @@ class Gui(object):
 
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.insert(END, 'Black')
         entry.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.insert(END, 'red')
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         a_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         a_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         b_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         b_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         c_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         c_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_y)
         entry.pack()
 
+        text = Label(root, text="x")
+        text.pack()
+
         d_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_x)
         entry.pack()
+
+        text = Label(root, text="y")
+        text.pack()
 
         d_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_y)
         entry.pack()
 
         enter_button = Button(root, text="Enter", command=lambda: self.draw_kite(fill_colour.get(),
-                                                                                                 outline_colour.get(),
-                                                                                                 Point(a_label_x.get(),
-                                                                                                       a_label_y.get()),
-                                                                                                 Point(b_label_x.get(),
-                                                                                                       b_label_y.get()),
-                                                                                                 Point(c_label_x.get(),
-                                                                                                       c_label_y.get()),
-                                                                                                 Point(d_label_x.get(),
-                                                                                                       d_label_y.get()),
-                                                                                                 canvas))
+                                                                                                     outline_colour.get(),
+                                                                                                     Point(a_label_x.get(),
+                                                                                                           a_label_y.get()),
+                                                                                                     Point(b_label_x.get(),
+                                                                                                           b_label_y.get()),
+                                                                                                     Point(c_label_x.get(),
+                                                                                                           c_label_y.get()),
+                                                                                                     Point(d_label_x.get(),
+                                                                                                           d_label_y.get()),
+                                                                                                     canvas))
         enter_button.pack()
 
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
@@ -380,39 +475,65 @@ class Gui(object):
 
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.insert(END, 'Black')
         entry.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.insert(END, 'red')
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         a_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         a_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         b_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         b_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         c_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         c_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_y)
         entry.pack()
 
+        text = Label(root, text="x")
+        text.pack()
+
         d_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_x)
         entry.pack()
+
+        text = Label(root, text="y")
+        text.pack()
 
         d_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_y)
@@ -444,39 +565,65 @@ class Gui(object):
 
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
+        entry.insert(END, 'Black')
         entry.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
+        entry.insert(END, 'red')
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         a_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         a_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=a_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         b_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         b_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=b_label_y)
         entry.pack()
+
+        text = Label(root, text="x")
+        text.pack()
 
         c_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_x)
         entry.pack()
 
+        text = Label(root, text="y")
+        text.pack()
+
         c_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=c_label_y)
         entry.pack()
 
+        text = Label(root, text="x")
+        text.pack()
+
         d_label_x = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_x)
         entry.pack()
+
+        text = Label(root, text="y")
+        text.pack()
 
         d_label_y = IntVar()
         entry = Entry(root, width=10, textvariable=d_label_y)
@@ -506,57 +653,30 @@ class Gui(object):
         text = Label(root, text="Kwadrat")
         text.pack()
 
+        text = Label(root, text="Kolor wypełnienia")
+        text.pack()
+
         fill_colour = StringVar()
         entry = Entry(root, width=10, textvariable=fill_colour)
         entry.pack()
+
+        text = Label(root, text="Kolor obramowania")
+        text.pack()
 
         outline_colour = StringVar()
         entry = Entry(root, width=10, textvariable=outline_colour)
         entry.pack()
 
-        a_label_x = IntVar()
-        entry = Entry(root, width=10, textvariable=a_label_x)
+        text = Label(root, text="a")
+        text.pack()
+
+        a = IntVar()
+        entry = Entry(root, width=10, textvariable=a)
         entry.pack()
 
-        a_label_y = IntVar()
-        entry = Entry(root, width=10, textvariable=a_label_y)
-        entry.pack()
-
-        b_label_x = IntVar()
-        entry = Entry(root, width=10, textvariable=b_label_x)
-        entry.pack()
-
-        b_label_y = IntVar()
-        entry = Entry(root, width=10, textvariable=b_label_y)
-        entry.pack()
-
-        c_label_x = IntVar()
-        entry = Entry(root, width=10, textvariable=c_label_x)
-        entry.pack()
-
-        c_label_y = IntVar()
-        entry = Entry(root, width=10, textvariable=c_label_y)
-        entry.pack()
-
-        d_label_x = IntVar()
-        entry = Entry(root, width=10, textvariable=d_label_x)
-        entry.pack()
-
-        d_label_y = IntVar()
-        entry = Entry(root, width=10, textvariable=d_label_y)
-        entry.pack()
-
-        enter_button = Button(root, text="Enter", command=lambda: self.draw_square(fill_colour.get(),
-                                                                                 outline_colour.get(),
-                                                                                 Point(a_label_x.get(),
-                                                                                       a_label_y.get()),
-                                                                                 Point(b_label_x.get(),
-                                                                                       b_label_y.get()),
-                                                                                 Point(c_label_x.get(),
-                                                                                       c_label_y.get()),
-                                                                                 Point(d_label_x.get(),
-                                                                                       d_label_y.get()),
-                                                                                 canvas))
+        enter_button = Button(root, text="Enter",
+                              command=lambda: self.draw_square(a.get(), fill_colour.get(),
+                                                                             outline_colour.get(), canvas))
         enter_button.pack()
 
         enter_button = Button(root, text="Wróć do menu", command=lambda: self.menu(root))
@@ -620,21 +740,21 @@ class Gui(object):
 
     def draw_kite(self, fill_colour, outline_colour, A, B, C, D, canvas):
         canvas.delete("all")
-        kite = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        kite = Kite(fill_colour, outline_colour, A, B, C, D)
         canvas.create_text(150, 10, text=("Obwód", kite.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", kite.area()))
         kite.draw(canvas)
 
     def draw_rhombus(self, fill_colour, outline_colour, A, B, C, D, canvas):
         canvas.delete("all")
-        rhombus = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        rhombus = Rhombus(fill_colour, outline_colour, A, B, C, D)
         canvas.create_text(150, 10, text=("Obwód", rhombus.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", rhombus.area()))
         rhombus.draw(canvas)
 
-    def draw_square(self, fill_colour, outline_colour, A, B, C, D, canvas):
+    def draw_square(self, a, fill_colour, outline_colour, canvas):
         canvas.delete("all")
-        square = Parallelogram(fill_colour, outline_colour, A, B, C, D)
+        square = Square(a, *self.CENTER, fill_colour, outline_colour)
         canvas.create_text(150, 10, text=("Obwód", square.perimeter()))
         canvas.create_text(150, 30, text=("Pole ", square.area()))
         square.draw(canvas)
